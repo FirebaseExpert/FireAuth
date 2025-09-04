@@ -1,0 +1,38 @@
+<resources>
+    <!--App-->
+    <string name="app_name">FireAuth</string>
+    <string name="app_technology">Firebase</string>
+    <string name="app_host">fireauth-d5366.firebaseapp.com</string>
+    <string name="app_url">https://fireauth-d5366.firebaseapp.com</string>
+    <!--Apps-->
+    <string name="fireapp">FireApp</string>
+    <string name="fireapp_url">https://play.google.com/store/apps/details?id=com.firebase_expert.fireapp</string>
+    <!--Screen Titles/Subtitles-->
+    <string name="auth_entry_screen_title">Sign in or sign up</string>
+    <string name="verify_code_screen_title">Confirm phone number</string>
+    <!--Icon Content Descriptions-->
+    <string name="navigate_back_icon">Navigate Back Icon</string>
+    <string name="open_menu_icon">Open Menu Icon</string>
+    <string name="clear_email_input_icon">Clear Email Input Icon</string>
+    <string name="clear_phone_input_icon">Clear Email Input Icon</string>
+    <string name="email_icon">Email Icon</string>
+    <string name="phone_icon">Phone Icon</string>
+    <!--Labels-->
+    <string name="email_label">Email</string>
+    <string name="phone_label">Phone</string>
+    <!--Buttons-->
+    <string name="continue_button">Continue</string>
+    <string name="continue_with_email_button">Continue with Email</string>
+    <string name="continue_with_phone_button">Continue with Phone</string>
+    <string name="visit_website_button">Visit Website</string>
+    <!--Actions-->
+    <string name="sign_out">Sign out</string>
+    <string name="delete_account">Delete account</string>
+    <!--Texts-->
+    <string name="or">or</string>
+    <string name="did_not_get_code">Didn\'t get the code?</string>
+    <string name="send_again">Send again</string>
+    <string name="powered_by_firebase">"Powered by Firebase"</string>
+    <string name="interested_in_buying">"Interested in buying the source code?"</string>
+    <string name="interested_in">"You might also be interested in"</string>
+</resources>
