@@ -1,6 +1,5 @@
 package com.firebase_expert.fireauth.android.ui.screen.main
 
-import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.compose.material3.Scaffold
@@ -18,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firebase_expert.fireauth.android.navigation.Screen
+import com.firebase_expert.fireauth.android.ui.FireAuthActivity
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthEvent
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthProvider
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthUiState
@@ -28,10 +28,7 @@ import com.firebase_expert.fireauth.android.ui.screen.main.component.MainTopBar
 import com.firebase_expert.fireauth.android.util.REAUTHENTICATION_LINK_NOT_SENT
 import com.firebase_expert.fireauth.android.util.SEND_CODE
 import com.firebase_expert.fireauth.android.util.SEND_EMAIL
-import com.firebase_expert.fireauth.android.util.SIGN_OUT_SUCCESS
 import com.firebase_expert.fireauth.android.util.TAG
-import com.firebase_expert.fireauth.android.util.extensions.clearEmailLink
-import com.firebase_expert.fireauth.android.util.extensions.emailLink
 import com.firebase_expert.fireauth.android.util.showToast
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -42,12 +39,11 @@ const val GOOGLE_PLAY_APP_URL = "https://play.google.com/store/apps/details?id=c
 fun MainScreen(
     authViewModel: AuthViewModel = koinViewModel(),
     mainViewModel: MainViewModel = koinViewModel(),
-    isSignedOut: Boolean,
+    emailLink: String?,
     onNavigate: (Screen) -> Unit
 ) {
     val context = LocalContext.current
-    val activity = context as Activity
-    val intent = activity.intent
+    val activity = context as FireAuthActivity
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val uiState by authViewModel.uiState.collectAsStateWithLifecycle()
@@ -87,12 +83,8 @@ fun MainScreen(
         )
     }
 
-    LaunchedEffect(isSignedOut) {
-        if (isSignedOut) showToast(context, SIGN_OUT_SUCCESS)
-    }
-
-    LaunchedEffect(intent.emailLink) {
-        intent.emailLink?.let { emailLink ->
+    LaunchedEffect(emailLink) {
+        emailLink?.let { emailLink ->
             authViewModel.reauthenticateWithEmailLink(emailLink)
         }
     }
@@ -111,7 +103,7 @@ fun MainScreen(
             SnackbarResult.ActionPerformed -> when (authProvider) {
                 AuthProvider.EMAIL -> authViewModel.sendReauthenticationLinkToEmail()
                 AuthProvider.PHONE -> authViewModel.verifyPhoneNumber(
-                    phoneNumber = authViewModel.phoneNumber ?: return@launch, //Get phoneNumber from ViewModel?
+                    phoneNumber = authViewModel.phoneNumber ?: return@launch,
                     activity = activity
                 )
             }
@@ -124,7 +116,7 @@ fun MainScreen(
             when (event) {
                 is AuthEvent.ShowToast -> showToast(context, event.message)
                 is AuthEvent.ShowSnackbar -> showSnackbar(event.message, event.authProvider)
-                is AuthEvent.ClearEmailLink -> intent.clearEmailLink()
+                is AuthEvent.ClearEmailLink -> activity.clearEmailLink()
                 is AuthEvent.NavigateToVerifyCodeScreen -> onNavigate(Screen.VerifyCode(event.phoneNumber))
                 else -> Unit
             }

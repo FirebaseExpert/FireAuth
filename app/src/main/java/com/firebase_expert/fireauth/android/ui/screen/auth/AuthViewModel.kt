@@ -29,6 +29,7 @@ import com.firebase_expert.fireauth.android.util.SIGN_IN_WITH_EMAIL_LINK_FAILURE
 import com.firebase_expert.fireauth.android.util.SIGN_IN_WITH_EMAIL_LINK_SUCCESS
 import com.firebase_expert.fireauth.android.util.SIGN_IN_WITH_PHONE_FAILURE
 import com.firebase_expert.fireauth.android.util.SIGN_IN_WITH_PHONE_SUCCESS
+import com.firebase_expert.fireauth.android.util.SIGN_OUT_SUCCESS
 import com.firebase_expert.fireauth.android.util.TAG
 import com.firebase_expert.fireauth.android.util.TOO_MANY_REQUESTS
 import com.firebase_expert.fireauth.android.util.UNKNOWN_FAILURE
@@ -242,11 +243,12 @@ class AuthViewModel(
         reauthenticateWithPhoneCredential(credential)
     }
 
-    fun signOut() = {
+    fun signOut() = viewModelScope.launch {
         setLoading(AuthUiState::isSigningOut, true)
         authRepo.signOut()
         resetPhoneAuthState()
         setLoading(AuthUiState::isSigningOut, false)
+        _events.emit(AuthEvent.ShowToast(SIGN_OUT_SUCCESS))
     }
 
     fun deleteAccount() = viewModelScope.launch {
@@ -255,6 +257,7 @@ class AuthViewModel(
             authRepo.deleteUser()
             resetPhoneAuthState()
             _events.emit(AuthEvent.ShowToast(DELETE_ACCOUNT_SUCCESS))
+            _events.emit(AuthEvent.ShowToast(SIGN_OUT_SUCCESS))
         } catch (e: Exception) {
             Log.e(TAG, DELETE_ACCOUNT_FAILURE, e)
             if (e is FirebaseAuthRecentLoginRequiredException) {

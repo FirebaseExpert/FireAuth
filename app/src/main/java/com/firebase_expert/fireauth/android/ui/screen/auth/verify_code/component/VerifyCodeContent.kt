@@ -41,7 +41,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.firebase_expert.fireauth.android.ui.screen.auth.component.ContinueButton
-import com.firebase_expert.fireauth.android.ui.theme.FireAppManagerTheme
+import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
 import com.firebase_expert.fireauth.android.ui.screen.auth.util.transformation.DigitOnlyInputTransformation
 import com.firebase_expert.fireauth.android.util.DARK_MODE
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
@@ -177,7 +177,7 @@ fun VerifyCodeContent(
 )
 @Composable
 fun VerifyCodeContentPreview() {
-    FireAppManagerTheme {
+    FireAuthManagerTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {

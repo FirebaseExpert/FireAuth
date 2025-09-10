@@ -1,6 +1,5 @@
 package com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry
 
-import android.app.Activity
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -9,26 +8,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firebase_expert.fireauth.android.navigation.Screen
+import com.firebase_expert.fireauth.android.ui.FireAuthActivity
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthEvent
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthUiState
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthViewModel
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.AuthEntryContent
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.AuthEntryTopBar
-import com.firebase_expert.fireauth.android.util.SIGN_IN_SUCCESS
-import com.firebase_expert.fireauth.android.util.extensions.clearEmailLink
-import com.firebase_expert.fireauth.android.util.extensions.emailLink
 import com.firebase_expert.fireauth.android.util.showToast
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthEntryScreen(
     viewModel: AuthViewModel = koinViewModel(),
-    isSignedIn: Boolean,
+    emailLink: String?,
     onNavigate: (Screen) -> Unit
 ) {
     val context = LocalContext.current
-    val activity = context as Activity
-    val intent = activity.intent
+    val activity = context as FireAuthActivity
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -40,21 +36,14 @@ fun AuthEntryScreen(
             innerPadding = innerPadding,
             onSendSignInLinkToEmail = viewModel::sendSignInLinkToEmail,
             onVerifyPhoneNumber = { phoneNumber ->
-                viewModel.verifyPhoneNumber(
-                    phoneNumber = phoneNumber,
-                    activity = activity
-                )
+                viewModel.verifyPhoneNumber(phoneNumber, activity)
             },
             isLoading = uiState.isLoading
         )
     }
 
-    LaunchedEffect(isSignedIn) {
-        if (isSignedIn) showToast(context, SIGN_IN_SUCCESS)
-    }
-
-    LaunchedEffect(intent.emailLink) {
-        intent.emailLink?.let { emailLink ->
+    LaunchedEffect(emailLink) {
+        emailLink?.let { emailLink ->
             viewModel.signInWithWithEmailLink(emailLink)
         }
     }
@@ -63,7 +52,7 @@ fun AuthEntryScreen(
         viewModel.events.collect { event ->
             when (event) {
                 is AuthEvent.ShowToast -> showToast(context, event.message)
-                is AuthEvent.ClearEmailLink -> intent.clearEmailLink()
+                is AuthEvent.ClearEmailLink -> activity.clearEmailLink()
                 is AuthEvent.NavigateToVerifyCodeScreen -> onNavigate(Screen.VerifyCode(event.phoneNumber))
                 else -> Unit
             }

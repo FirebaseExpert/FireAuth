@@ -13,7 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HorizontalDividerWithText(
+fun AuthHorizontalDivider(
     resId: Int
 ) {
     Row(

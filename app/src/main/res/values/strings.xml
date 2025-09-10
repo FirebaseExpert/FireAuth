@@ -14,9 +14,11 @@
     <string name="navigate_back_icon">Navigate Back Icon</string>
     <string name="open_menu_icon">Open Menu Icon</string>
     <string name="clear_email_input_icon">Clear Email Input Icon</string>
-    <string name="clear_phone_input_icon">Clear Email Input Icon</string>
+    <string name="clear_phone_input_icon">Clear Phone Input Icon</string>
     <string name="email_icon">Email Icon</string>
     <string name="phone_icon">Phone Icon</string>
+    <string name="collapse_dropdown_menu_icon">Collapse Dropdown Menu Icon</string>
+    <string name="expand_dropdown_menu_icon">"Expand DropdownMenu Icon"</string>
     <!--Labels-->
     <string name="email_label">Email</string>
     <string name="phone_label">Phone</string>

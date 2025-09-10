@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.firebase_expert.fireauth.android.R
-import com.firebase_expert.fireauth.android.ui.theme.FireAppManagerTheme
+import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
 import com.firebase_expert.fireauth.android.util.DARK_MODE
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 
@@ -114,7 +114,7 @@ fun FirebaseLogo(
 )
 @Composable
 fun MainContentPreview() {
-    FireAppManagerTheme {
+    FireAuthManagerTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {

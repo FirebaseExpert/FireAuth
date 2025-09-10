@@ -14,10 +14,12 @@ import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -57,102 +59,115 @@ fun PhoneTextField(
     var expanded by remember { mutableStateOf(false) }
     val countries = COUNTRIES.map { (code, phoneCode) ->
         Country(
-            code = code,
+            name = code,
             phoneCode = phoneCode
         )
     }.sortedBy { country ->
-        country.code
+        country.name
     }
-    var selectedCountry by remember { mutableStateOf(countries[9]) }
+    var selectedCountry by remember { mutableStateOf(countries[8]) }
 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
         onCountrySelected(selectedCountry.phoneCode)
     }
 
-    OutlinedTextField(
-        state = phoneState,
-        modifier = Modifier.fillMaxWidth()
-            .focusRequester(focusRequester)
-            .semantics {
-                contentType = ContentType.PhoneNumber
-            },
-        label = {
-            Text(stringResource(R.string.phone_label))
-        },
-        leadingIcon = {
-            Row(
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    end = 8.dp
-                ).clickable {
-                    expanded = !expanded
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { isExpanded ->
+            expanded = isExpanded
+        }
+    ) {
+        OutlinedTextField(
+            state = phoneState,
+            modifier = Modifier.fillMaxWidth()
+                .focusRequester(focusRequester)
+                .semantics {
+                    contentType = ContentType.PhoneNumber
                 },
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = selectedCountry.phoneCode.prefixWithPlus()
-                )
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = null
-                )
-                VerticalDivider(
-                    modifier = Modifier.height(56.dp),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = {
-                    expanded = !expanded
-                }
-            ) {
-                countries.forEach { country ->
-                    DropdownMenuItem(
-                        text = {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(4.dp)
-                            ) {
-                                Text(
-                                    text = country.code
-                                )
-                                Text(
-                                    text = country.phoneCode.prefixWithPlus()
-                                )
-                            }
+            label = {
+                Text(stringResource(R.string.phone_label))
+            },
+            leadingIcon = {
+                Row(
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        end = 8.dp
+                    ).menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = selectedCountry.phoneCode.prefixWithPlus()
+                    )
+                    Icon(
+                        imageVector = if (expanded) {
+                            Icons.Default.ArrowDropUp
+                        } else {
+                            Icons.Default.ArrowDropDown
                         },
-                        onClick = {
-                            selectedCountry = country
-                            onCountrySelected(country.phoneCode)
-                            focusRequester.requestFocus()
-                            expanded = false
+                        contentDescription = if (expanded) {
+                            stringResource(R.string.collapse_dropdown_menu_icon)
+                        } else {
+                            stringResource(R.string.expand_dropdown_menu_icon)
+                        }
+                    )
+                    VerticalDivider(
+                        modifier = Modifier.height(56.dp),
+                        thickness = 2.dp,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            },
+            trailingIcon = {
+                if (phoneState.text.isNotEmpty()) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = stringResource(R.string.clear_phone_input_icon),
+                        modifier = Modifier.clickable {
+                            phoneState.clearText()
                         }
                     )
                 }
+            },
+            inputTransformation = DigitOnlyInputTransformation().maxLength(10),
+            outputTransformation = PhoneNumberOutputTransformation(),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Phone
+            ),
+            lineLimits = TextFieldLineLimits.SingleLine,
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = {
+                expanded = false
             }
-        },
-        trailingIcon = {
-            if (phoneState.text.isNotEmpty()) {
-                Icon(
-                    imageVector = Icons.Default.Clear,
-                    contentDescription = stringResource(R.string.clear_phone_input_icon),
-                    modifier = Modifier.clickable {
-                        phoneState.clearText()
+        ) {
+            countries.forEach { country ->
+                DropdownMenuItem(
+                    text = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            Text(
+                                text = country.name
+                            )
+                            Text(
+                                text = "(${country.phoneCode.prefixWithPlus()})"
+                            )
+                        }
+                    },
+                    onClick = {
+                        selectedCountry = country
+                        onCountrySelected(country.phoneCode)
+                        focusRequester.requestFocus()
+                        expanded = false
                     }
                 )
             }
-        },
-        inputTransformation = DigitOnlyInputTransformation().maxLength(10),
-        outputTransformation = PhoneNumberOutputTransformation(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Phone
-        ),
-        lineLimits = TextFieldLineLimits.SingleLine,
-    )
+        }
+    }
 }
 
 @Preview(showBackground = true)

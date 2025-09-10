@@ -2,6 +2,9 @@ package com.firebase_expert.fireauth.android.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.entry
@@ -18,15 +21,29 @@ import com.firebase_expert.fireauth.android.ui.screen.splash.SplashScreen
 
 @Composable
 fun FireAuthNavDisplay(
-    authState: FireAuthState
+    authState: FireAuthState,
+    emailLink: String?
 ) {
     val backStack = rememberNavBackStack(Screen.Splash)
+    val currentScreen by remember(backStack) {
+        derivedStateOf {
+            backStack.lastOrNull()
+        }
+    }
 
     LaunchedEffect(authState) {
         when (authState) {
             is FireAuthState.Loading -> Unit
-            is FireAuthState.SignedIn -> backStack.onClearAndNavigate(Screen.Main)
-            is FireAuthState.SignedOut -> backStack.onClearAndNavigate(Screen.AuthEntry)
+            is FireAuthState.SignedIn -> {
+                if (currentScreen != Screen.Main) {
+                    backStack.onClearAndNavigate(Screen.Main)
+                }
+            }
+            is FireAuthState.SignedOut -> {
+                if (currentScreen != Screen.AuthEntry && currentScreen !is Screen.VerifyCode) {
+                    backStack.onClearAndNavigate(Screen.AuthEntry)
+                }
+            }
         }
     }
 
@@ -46,7 +63,7 @@ fun FireAuthNavDisplay(
             }
             entry<Screen.AuthEntry> {
                 AuthEntryScreen(
-                    isSignedIn = authState is FireAuthState.SignedIn,
+                    emailLink = emailLink,
                     onNavigate = backStack::add
                 )
             }
@@ -58,7 +75,7 @@ fun FireAuthNavDisplay(
             }
             entry<Screen.Main> {
                 MainScreen(
-                    isSignedOut = authState is FireAuthState.SignedOut,
+                    emailLink = emailLink,
                     onNavigate = backStack::add
                 )
             }

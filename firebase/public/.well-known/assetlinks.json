@@ -1,0 +1,17 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.firebase_expert.fireauth.android",
+      "sha256_cert_fingerprints": [
+        "4F:C1:B0:85:A2:C6:01:F1:4C:4D:D7:63:BE:45:E8:8A:F0:8F:9E:3B:A2:07:42:BA:BF:5D:55:11:B6:A5:63:26",
+        "72:7B:F9:F5:8C:B3:4C:5B:1C:6C:60:A1:FE:43:8B:04:60:6F:AB:9A:13:ED:6B:1A:9F:31:06:A4:9B:9A:69:F6",
+        "4F:FE:FA:B4:AF:5D:22:80:F4:84:02:1C:55:DD:C4:81:81:AA:1E:98:C2:FD:A8:4E:66:E4:29:8F:A2:BD:E6:D7"
+      ]
+    }
+  }
+]

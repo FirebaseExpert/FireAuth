@@ -33,7 +33,7 @@ import com.firebase_expert.fireauth.android.R
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.text_field.EmailTextField
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.text_field.PhoneTextField
 import com.firebase_expert.fireauth.android.ui.screen.auth.component.ContinueButton
-import com.firebase_expert.fireauth.android.ui.theme.FireAppManagerTheme
+import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
 import com.firebase_expert.fireauth.android.util.DARK_MODE
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 import com.firebase_expert.fireauth.android.util.TEST_CODE
@@ -41,9 +41,9 @@ import com.firebase_expert.fireauth.android.util.TEST_COUNTRY_CODE
 import com.firebase_expert.fireauth.android.util.TEST_PHONE_NUMBER
 import com.firebase_expert.fireauth.android.util.extensions.prefixWithPlus
 
-const val PHONE_NUMBER = "Phone number"
+const val PHONE = "Phone"
 const val CODE = "Code"
-const val UNLISTED_COUNTRIES_TEST_CREDENTIALS = "For unlisted countries, use test credentials:"
+const val UNLISTED_COUNTRIES_CREDENTIALS = "For unlisted countries, use:"
 
 @Composable
 fun AuthEntryContent(
@@ -90,12 +90,12 @@ fun AuthEntryContent(
             )
             Column {
                 Text(
-                    text = UNLISTED_COUNTRIES_TEST_CREDENTIALS
+                    text = UNLISTED_COUNTRIES_CREDENTIALS
                 )
                 Text(
                     buildAnnotatedString {
                         withStyle(style = SpanStyle(textDecoration = TextDecoration.None)) {
-                            append("• $PHONE_NUMBER: ")
+                            append("• $PHONE: ")
                         }
                         withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
                             append("$TEST_COUNTRY_CODE$TEST_PHONE_NUMBER")
@@ -124,7 +124,7 @@ fun AuthEntryContent(
                 isLoading = isLoading
             )
         }
-        HorizontalDividerWithText(
+        AuthHorizontalDivider(
             resId = R.string.or
         )
         ContinueWithButton(
@@ -151,7 +151,7 @@ fun AuthEntryContent(
 )
 @Composable
 fun AuthContentPreview() {
-    FireAppManagerTheme {
+    FireAuthManagerTheme {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {

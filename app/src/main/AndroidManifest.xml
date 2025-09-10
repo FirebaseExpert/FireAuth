@@ -14,7 +14,8 @@
         <activity
             android:name=".ui.FireAuthActivity"
             android:exported="true"
-            android:theme="@style/Theme.FireAuth">
+            android:theme="@style/Theme.FireAuth"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
