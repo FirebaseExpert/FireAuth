@@ -57,9 +57,9 @@ fun PhoneTextField(
 ) {
     val focusRequester = remember { FocusRequester() }
     var expanded by remember { mutableStateOf(false) }
-    val countries = COUNTRIES.map { (code, phoneCode) ->
+    val countries = COUNTRIES.map { (name, phoneCode) ->
         Country(
-            name = code,
+            name = name,
             phoneCode = phoneCode
         )
     }.sortedBy { country ->

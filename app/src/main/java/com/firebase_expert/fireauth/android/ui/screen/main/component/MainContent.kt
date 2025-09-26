@@ -3,6 +3,7 @@ package com.firebase_expert.fireauth.android.ui.screen.main.component
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -22,21 +25,23 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import com.firebase_expert.fireauth.android.R
+import com.firebase_expert.fireauth.android.domain.model.App
+import com.firebase_expert.fireauth.android.domain.model.SaleInfo
 import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
 import com.firebase_expert.fireauth.android.util.DARK_MODE
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 
-const val APP_URL = "https://www.firebase-expert.com/#apps"
-
 @Composable
 fun MainContent(
     innerPadding: PaddingValues,
+    saleInfo: SaleInfo
 ) {
     val context = LocalContext.current
 
@@ -72,13 +77,13 @@ fun MainContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = stringResource(R.string.interested_in_buying),
+                text = saleInfo.question,
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
             )
             Button(
                 onClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = APP_URL.toUri()
+                        data = saleInfo.url.toUri()
                     }
                     context.startActivity(intent)
                 }
@@ -86,6 +91,31 @@ fun MainContent(
                 Text(
                     text = stringResource(R.string.visit_website_button)
                 )
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = saleInfo.message
+            )
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                items(saleInfo.apps) { app ->
+                    Text(
+                        text = app.name,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = app.url.toUri()
+                                setPackage("com.android.vending")
+                            }
+                            context.startActivity(intent)
+                        },
+                        textDecoration = TextDecoration.Underline
+                    )
+                }
             }
         }
     }
@@ -119,7 +149,18 @@ fun MainContentPreview() {
             modifier = Modifier.fillMaxSize()
         ) {
             MainContent(
-                innerPadding = PaddingValues()
+                innerPadding = PaddingValues(),
+                saleInfo = SaleInfo(
+                    apps = listOf(
+                        App(
+                            name = "FireApp",
+                            url = "https://play.google.com/store/apps/details?id=com.firebase_expert.fireapp"
+
+                        )
+                    ),
+                    message = "Interested in buying the source code?",
+                    url = "https://www.firebase-expert.com/apps/fireauth/"
+                )
             )
         }
     }

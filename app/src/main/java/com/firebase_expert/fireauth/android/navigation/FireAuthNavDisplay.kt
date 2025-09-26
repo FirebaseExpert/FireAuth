@@ -7,13 +7,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.scene.rememberSceneSetupNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
-import com.firebase_expert.fireauth.android.ui.FireAuthState
+import com.firebase_expert.fireauth.android.ui.screen.auth.AuthState
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.AuthEntryScreen
 import com.firebase_expert.fireauth.android.ui.screen.auth.verify_code.VerifyCodeScreen
 import com.firebase_expert.fireauth.android.ui.screen.main.MainScreen
@@ -21,7 +21,7 @@ import com.firebase_expert.fireauth.android.ui.screen.splash.SplashScreen
 
 @Composable
 fun FireAuthNavDisplay(
-    authState: FireAuthState,
+    authState: AuthState,
     emailLink: String?
 ) {
     val backStack = rememberNavBackStack(Screen.Splash)
@@ -33,13 +33,13 @@ fun FireAuthNavDisplay(
 
     LaunchedEffect(authState) {
         when (authState) {
-            is FireAuthState.Loading -> Unit
-            is FireAuthState.SignedIn -> {
+            is AuthState.Loading -> Unit
+            is AuthState.SignedIn -> {
                 if (currentScreen != Screen.Main) {
                     backStack.onClearAndNavigate(Screen.Main)
                 }
             }
-            is FireAuthState.SignedOut -> {
+            is AuthState.SignedOut -> {
                 if (currentScreen != Screen.AuthEntry && currentScreen !is Screen.VerifyCode) {
                     backStack.onClearAndNavigate(Screen.AuthEntry)
                 }
@@ -83,7 +83,7 @@ fun FireAuthNavDisplay(
     )
 }
 
-fun NavBackStack.onClearAndNavigate(screen: Screen) {
+fun <T : NavKey> NavBackStack<T>.onClearAndNavigate(screen: T) {
     clear()
     add(screen)
 }

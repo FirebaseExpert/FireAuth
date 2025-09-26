@@ -3,16 +3,16 @@ package com.firebase_expert.fireauth.android.util
 //App
 const val TAG = "AppTag"
 
+//Preview
+const val LIGHT_MODE = "Light Mode"
+const val DARK_MODE = "Dark Mode"
+
 //Testing Phone Credentials
 const val TEST_COUNTRY_CODE = "+40"
 const val TEST_PHONE_NUMBER = "(701)234-567"
 const val TEST_CODE = "123456"
 
-//Preview
-const val LIGHT_MODE = "Light Mode"
-const val DARK_MODE = "Dark Mode"
-
-//Messages
+//Auth Messages
 const val SIGN_IN_LINK_SENT_SUCCESS = "Sign-in link successfully sent to email"
 const val SIGN_IN_LINK_SENT_FAILURE = "Failed to send sign-in link to email"
 const val SIGN_IN_WITH_EMAIL_LINK_SUCCESS = "Signed in successfully with email link"
@@ -37,10 +37,18 @@ const val TOO_MANY_REQUESTS = "The SMS quota for the project has been exceeded"
 const val MISSING_ACTIVITY_FOR_RECAPTCHA = "reCAPTCHA verification failed"
 const val VERIFICATION_CODE_SENT_SUCCESS = "Verification code successfully sent to phone"
 const val VERIFICATION_CODE_RESENT_SUCCESS = "Verification code successfully resent to phone"
+const val VERIFICATION_CODE_NOT_SENT = "Verification code not sent to phone"
 const val INVALID_EMAIL = "Invalid email"
 const val INVALID_EMAIL_LINK = "The link in the email is invalid, expired, or has already been used"
 const val INVALID_PHONE_NUMBER = "Invalid phone number"
 const val UNKNOWN_FAILURE = "Unknown failure"
+
+//SaleInfo Messages
+const val FETCH_SALE_INFO_SUCCESS = "Sale info successfully fetched"
+const val FETCH_SALE_INFO_FAILURE = "Failed to fetch sale info"
+
+//Realtime Database Nodes
+const val SALE_INFO = "saleInfo"
 
 //Action Labels
 const val SEND_EMAIL = "Send email?"

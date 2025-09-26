@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.firebase_expert.fireauth.android.navigation.FireAuthNavDisplay
+import com.firebase_expert.fireauth.android.ui.screen.auth.AuthViewModel
 import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -24,7 +25,7 @@ class FireAuthActivity : ComponentActivity() {
         handleIntent(intent)
 
         setContent {
-            val viewModel = koinViewModel<FireAuthViewModel>()
+            val viewModel = koinViewModel<AuthViewModel>()
             val authState by viewModel.authState.collectAsStateWithLifecycle()
 
             FireAuthManagerTheme {

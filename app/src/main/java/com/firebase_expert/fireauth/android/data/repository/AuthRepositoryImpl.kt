@@ -2,7 +2,7 @@ package com.firebase_expert.fireauth.android.data.repository
 
 import android.app.Activity
 import com.firebase_expert.fireauth.android.domain.repository.AuthRepository
-import com.firebase_expert.fireauth.android.ui.FireAuthState
+import com.firebase_expert.fireauth.android.ui.screen.auth.AuthState
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +22,7 @@ class AuthRepositoryImpl(
 
     override fun getAuthState() = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
-            val authState = if (auth.currentUser == null) FireAuthState.SignedOut else FireAuthState.SignedIn
+            val authState = if (auth.currentUser == null) AuthState.SignedOut else AuthState.SignedIn
             trySend(authState)
         }
         auth.addAuthStateListener(authStateListener)

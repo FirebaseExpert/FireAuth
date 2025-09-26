@@ -48,7 +48,7 @@ import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 import kotlinx.coroutines.flow.drop
 import com.firebase_expert.fireauth.android.R
 
-const val ENTER_CODE = "Enter the code we've sent to"
+const val ENTER_CODE_SENT_TO = "Enter the code sent to"
 
 @Composable
 fun VerifyCodeContent(
@@ -84,7 +84,7 @@ fun VerifyCodeContent(
         }
 
         Text(
-            text = "$ENTER_CODE $phoneNumber"
+            text = "$ENTER_CODE_SENT_TO $phoneNumber"
         )
 
         Row(

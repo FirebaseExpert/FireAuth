@@ -43,10 +43,13 @@ import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.reflect.KProperty1
@@ -75,6 +78,12 @@ class AuthViewModel(
         set(value) {
             PhoneAuthSingleton.resendToken = value
         }
+
+    val authState get() = authRepo.getAuthState().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000L),
+        initialValue = AuthState.Loading
+    )
 
     fun sendSignInLinkToEmail(email: String) = viewModelScope.launch {
         try {
@@ -245,6 +254,7 @@ class AuthViewModel(
 
     fun signOut() = viewModelScope.launch {
         setLoading(AuthUiState::isSigningOut, true)
+        delay(1500) //ToRemove
         authRepo.signOut()
         resetPhoneAuthState()
         setLoading(AuthUiState::isSigningOut, false)

@@ -4,9 +4,6 @@
     <string name="app_technology">Firebase</string>
     <string name="app_host">fireauth-d5366.firebaseapp.com</string>
     <string name="app_url">https://fireauth-d5366.firebaseapp.com</string>
-    <!--Apps-->
-    <string name="fireapp">FireApp</string>
-    <string name="fireapp_url">https://play.google.com/store/apps/details?id=com.firebase_expert.fireapp</string>
     <!--Screen Titles/Subtitles-->
     <string name="auth_entry_screen_title">Sign in or sign up</string>
     <string name="verify_code_screen_title">Confirm phone number</string>
@@ -18,7 +15,7 @@
     <string name="email_icon">Email Icon</string>
     <string name="phone_icon">Phone Icon</string>
     <string name="collapse_dropdown_menu_icon">Collapse Dropdown Menu Icon</string>
-    <string name="expand_dropdown_menu_icon">"Expand DropdownMenu Icon"</string>
+    <string name="expand_dropdown_menu_icon">"Expand Dropdown Menu Icon"</string>
     <!--Labels-->
     <string name="email_label">Email</string>
     <string name="phone_label">Phone</string>
@@ -35,6 +32,5 @@
     <string name="did_not_get_code">Didn\'t get the code?</string>
     <string name="send_again">Send again</string>
     <string name="powered_by_firebase">"Powered by Firebase"</string>
-    <string name="interested_in_buying">"Interested in buying the source code?"</string>
-    <string name="interested_in">"You might also be interested in"</string>
+    <string name="version">"v."</string>
 </resources>

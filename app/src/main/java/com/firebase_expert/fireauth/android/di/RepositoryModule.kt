@@ -9,6 +9,7 @@ import com.firebase_expert.fireauth.android.domain.repository.AuthRepository
 import com.firebase_expert.fireauth.android.domain.repository.MainRepository
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import org.koin.dsl.module
 
 val repositoryModule = module {
@@ -26,6 +27,8 @@ val repositoryModule = module {
     }
 
     single<MainRepository> {
-        MainRepositoryImpl()
+        MainRepositoryImpl(
+            db = get<FirebaseDatabase>()
+        )
     }
 }

@@ -41,9 +41,9 @@ import com.firebase_expert.fireauth.android.util.TEST_COUNTRY_CODE
 import com.firebase_expert.fireauth.android.util.TEST_PHONE_NUMBER
 import com.firebase_expert.fireauth.android.util.extensions.prefixWithPlus
 
+const val UNLISTED_COUNTRIES_CREDENTIALS = "For unlisted countries, use:"
 const val PHONE = "Phone"
 const val CODE = "Code"
-const val UNLISTED_COUNTRIES_CREDENTIALS = "For unlisted countries, use:"
 
 @Composable
 fun AuthEntryContent(
@@ -124,7 +124,7 @@ fun AuthEntryContent(
                 isLoading = isLoading
             )
         }
-        AuthHorizontalDivider(
+        AuthEntryHorizontalDivider(
             resId = R.string.or
         )
         ContinueWithButton(

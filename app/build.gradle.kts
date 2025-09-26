@@ -17,8 +17,8 @@ android {
         applicationId = "com.firebase_expert.fireauth.android"
         minSdk = 24
         targetSdk = 36
-        versionCode = 5
-        versionName = "1.4"
+        versionCode = 6
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,6 +50,7 @@ android {
 
 dependencies {
     //Compose
+    implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
     implementation(libs.compose.material.icons)
     //Preview
@@ -63,5 +64,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.android.compose)
     //Firebase
+    implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 }

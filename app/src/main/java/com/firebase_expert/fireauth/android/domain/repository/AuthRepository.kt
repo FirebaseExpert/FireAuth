@@ -1,7 +1,7 @@
 package com.firebase_expert.fireauth.android.domain.repository
 
 import android.app.Activity
-import com.firebase_expert.fireauth.android.ui.FireAuthState
+import com.firebase_expert.fireauth.android.ui.screen.auth.AuthState
 import com.firebase_expert.fireauth.android.ui.screen.auth.PhoneAuthState
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.PhoneAuthCredential
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface AuthRepository {
     val currentUser: FirebaseUser?
 
-    fun getAuthState(): Flow<FireAuthState>
+    fun getAuthState(): Flow<AuthState>
 
     val isSignedInWitEmail: Boolean
 
