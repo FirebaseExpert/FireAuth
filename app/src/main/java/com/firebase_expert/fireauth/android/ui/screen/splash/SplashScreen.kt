@@ -1,7 +1,16 @@
 package com.firebase_expert.fireauth.android.ui.screen.splash
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import com.firebase_expert.fireauth.android.ui.screen.component.ProgressIndicator
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 
 @Composable
-fun SplashScreen() = ProgressIndicator()
+fun SplashScreen() = Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center
+) {
+    CircularProgressIndicator()
+}

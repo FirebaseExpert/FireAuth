@@ -1,4 +1,4 @@
-package com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component
+package com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.button
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -25,12 +25,12 @@ fun ContinueWithButton(
     imageVector: ImageVector,
     contentDescription: Int,
     resId: Int,
-    onContinueWithButtonClick: () -> Unit,
+    onClick: () -> Unit,
     isLoading: Boolean
 ) {
     Button(
         onClick = {
-            onContinueWithButtonClick()
+            onClick()
         },
         modifier = Modifier.fillMaxWidth(),
         enabled = !isLoading,

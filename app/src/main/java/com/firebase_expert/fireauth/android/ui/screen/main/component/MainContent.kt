@@ -158,7 +158,8 @@ fun MainContentPreview() {
 
                         )
                     ),
-                    message = "Interested in buying the source code?",
+                    message = "You might also try",
+                    question = "Interested in buying the source code?",
                     url = "https://www.firebase-expert.com/apps/fireauth/"
                 )
             )

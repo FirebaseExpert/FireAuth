@@ -30,6 +30,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.firebase_expert.fireauth.android.R
+import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.button.ContinueWithButton
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.text_field.EmailTextField
 import com.firebase_expert.fireauth.android.ui.screen.auth.auth_entry.component.text_field.PhoneTextField
 import com.firebase_expert.fireauth.android.ui.screen.auth.component.ContinueButton
@@ -131,7 +132,7 @@ fun AuthEntryContent(
             resId = if (showEmailAuth) R.string.continue_with_phone_button else R.string.continue_with_email_button,
             imageVector = if (showEmailAuth) Icons.Filled.Phone else Icons.Filled.Email,
             contentDescription = if (showEmailAuth) R.string.phone_icon else R.string.email_icon,
-            onContinueWithButtonClick = {
+            onClick = {
                 showEmailAuth = !showEmailAuth
             },
             isLoading = isLoading

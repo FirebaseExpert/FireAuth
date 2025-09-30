@@ -31,13 +31,11 @@ fun FireAuthNavDisplay(
         }
     }
 
-    LaunchedEffect(authState) {
+    LaunchedEffect(authState, currentScreen) {
         when (authState) {
-            is AuthState.Loading -> Unit
-            is AuthState.SignedIn -> {
-                if (currentScreen != Screen.Main) {
-                    backStack.onClearAndNavigate(Screen.Main)
-                }
+            is AuthState.Loading -> {}
+            is AuthState.SignedIn -> if (currentScreen != Screen.Main) {
+                backStack.onClearAndNavigate(Screen.Main)
             }
             is AuthState.SignedOut -> {
                 if (currentScreen != Screen.AuthEntry && currentScreen !is Screen.VerifyCode) {

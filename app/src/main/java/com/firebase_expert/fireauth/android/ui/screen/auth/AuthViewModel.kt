@@ -4,7 +4,6 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.firebase_expert.fireauth.android.data.repository.PhoneAuthSingleton
 import com.firebase_expert.fireauth.android.domain.repository.AuthPrefsRepository
 import com.firebase_expert.fireauth.android.domain.repository.AuthRepository
 import com.firebase_expert.fireauth.android.util.DELETE_ACCOUNT_FAILURE
@@ -304,4 +303,9 @@ class AuthViewModel(
 
 enum class AuthProvider {
     EMAIL, PHONE
+}
+
+object PhoneAuthSingleton {
+    var storedVerificationId: String? = null
+    var resendToken: PhoneAuthProvider.ForceResendingToken? = null
 }

@@ -37,11 +37,8 @@ class FireAuthActivity : ComponentActivity() {
         }
     }
 
-    private fun handleIntent(intent: Intent?) {
-        val emailLink = intent?.data
-        if (emailLink != null) {
-            currentEmailLink = emailLink.toString()
-        }
+    private fun handleIntent(intent: Intent?) = intent?.data?.let { emailLink ->
+        currentEmailLink = emailLink.toString()
     }
 
     override fun onNewIntent(intent: Intent) {

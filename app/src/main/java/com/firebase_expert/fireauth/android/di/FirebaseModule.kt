@@ -11,6 +11,7 @@ val firebaseModule = module {
     single<FirebaseAuth> {
         Firebase.auth
     }
+
     single<FirebaseDatabase> {
         Firebase.database
     }

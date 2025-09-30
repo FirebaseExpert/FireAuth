@@ -19,7 +19,6 @@ import com.firebase_expert.fireauth.android.ui.screen.auth.AuthEvent
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthProvider
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthUiState
 import com.firebase_expert.fireauth.android.ui.screen.auth.AuthViewModel
-import com.firebase_expert.fireauth.android.ui.screen.component.ProgressIndicator
 import com.firebase_expert.fireauth.android.ui.screen.main.component.MainBottomBar
 import com.firebase_expert.fireauth.android.ui.screen.main.component.MainContent
 import com.firebase_expert.fireauth.android.ui.screen.main.component.MainTopBar
@@ -50,7 +49,7 @@ fun MainScreen(
             MainTopBar(
                 onSignOut = authViewModel::signOut,
                 onDeleteAccount = authViewModel::deleteAccount,
-                isLoading = authUiState.isLoading
+                isLoading = authUiState.isLoading || mainUiState.isLoading
             )
         },
         bottomBar = {
@@ -62,9 +61,6 @@ fun MainScreen(
             )
         }
     ) { innerPadding ->
-        if (mainUiState.isGettingSaleInfo) {
-            ProgressIndicator()
-        }
         mainUiState.saleInfo?.let { saleInfo ->
             MainContent(
                 innerPadding = innerPadding,
@@ -111,7 +107,7 @@ fun MainScreen(
                 is AuthEvent.ShowSnackbar -> showSnackbar(event.message, event.authProvider)
                 is AuthEvent.ClearEmailLink -> activity.clearEmailLink()
                 is AuthEvent.NavigateToVerifyCodeScreen -> onNavigate(Screen.VerifyCode(event.phoneNumber))
-                else -> Unit
+                else -> {}
             }
         }
     }

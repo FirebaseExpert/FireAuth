@@ -47,6 +47,8 @@ import com.firebase_expert.fireauth.android.util.DARK_MODE
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 import kotlinx.coroutines.flow.drop
 import com.firebase_expert.fireauth.android.R
+import com.firebase_expert.fireauth.android.util.TEST_COUNTRY_CODE
+import com.firebase_expert.fireauth.android.util.TEST_PHONE_NUMBER
 
 const val ENTER_CODE_SENT_TO = "Enter the code sent to"
 
@@ -183,7 +185,7 @@ fun VerifyCodeContentPreview() {
         ) {
             VerifyCodeContent(
                 innerPadding = PaddingValues(),
-                phoneNumber = "+40722645840",
+                phoneNumber = "$TEST_COUNTRY_CODE$TEST_PHONE_NUMBER",
                 onAuthWithVerificationCode = {},
                 onSendAgain = {},
                 isLoading = false
