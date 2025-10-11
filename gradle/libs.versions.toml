@@ -1,13 +1,13 @@
 [versions]
 gradle = "8.13.0"
 kotlin = "2.2.20"
-devtoolsKsp = "2.2.20-2.0.3"
-googleServices = "4.4.3"
+devtoolsKsp = "2.2.20-2.0.4"
+googleServices = "4.4.4"
 composeBom = "2025.10.00"
 nav3Core = "1.0.0-alpha10"
 lifecycleViewmodelNav3 = "2.9.4"
 koin = "4.1.1"
-firebaseBom = "34.3.0"
+firebaseBom = "34.4.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }
