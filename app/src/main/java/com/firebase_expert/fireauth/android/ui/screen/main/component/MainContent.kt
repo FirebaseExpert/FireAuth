@@ -1,6 +1,5 @@
 package com.firebase_expert.fireauth.android.ui.screen.main.component
 
-import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -14,7 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,18 +32,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import com.firebase_expert.fireauth.android.R
 import com.firebase_expert.fireauth.android.domain.model.App
-import com.firebase_expert.fireauth.android.domain.model.SaleInfo
 import com.firebase_expert.fireauth.android.ui.theme.FireAuthManagerTheme
+import com.firebase_expert.fireauth.android.util.APPS_DIRECTORY
+import com.firebase_expert.fireauth.android.util.APPS_FORM_URL
+import com.firebase_expert.fireauth.android.util.APP_NAME_DIRECTORY
 import com.firebase_expert.fireauth.android.util.DARK_MODE
+import com.firebase_expert.fireauth.android.util.FIREBASE_EXPERT_URL
+import com.firebase_expert.fireauth.android.util.FIREBASE_URL
 import com.firebase_expert.fireauth.android.util.LIGHT_MODE
+import com.firebase_expert.fireauth.android.util.extension.openPlayStore
+import com.firebase_expert.fireauth.android.util.extension.openWebsite
 
 @Composable
 fun MainContent(
     innerPadding: PaddingValues,
-    saleInfo: SaleInfo
+    apps: List<App>
 ) {
     val context = LocalContext.current
 
@@ -61,13 +68,37 @@ fun MainContent(
                 text = stringResource(R.string.app_name),
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = 30.sp),
             )
-            Row {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+            ) {
                 Text(
-                    text = stringResource(R.string.powered_by_firebase),
-                    style = MaterialTheme.typography.bodySmall,
+                    text = stringResource(R.string.powered_by)
+                )
+                ClickableText(
+                    text = stringResource(R.string.firebase),
+                    onClick = {
+                        context.openWebsite(
+                            url = FIREBASE_URL
+                        )
+                    }
                 )
                 FirebaseLogo(
                     size = 16.dp
+                )
+            }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+            ) {
+                Text(
+                    text = stringResource(R.string.developed_by)
+                )
+                ClickableText(
+                    text = stringResource(R.string.firebase_expert),
+                    onClick = {
+                        context.openWebsite(
+                            url = FIREBASE_EXPERT_URL
+                        )
+                    }
                 )
             }
         }
@@ -77,19 +108,29 @@ fun MainContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = saleInfo.question,
-                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp)
+                text = stringResource(R.string.interested_in_buying)
             )
-            Button(
+            ActionButton(
+                resId = R.string.open_request_form_button,
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = saleInfo.url.toUri()
-                    }
-                    context.startActivity(intent)
+                    context.openWebsite(
+                        url = APPS_FORM_URL
+                    )
                 }
+            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
             ) {
                 Text(
-                    text = stringResource(R.string.visit_website_button)
+                    text = stringResource(R.string.for_more_details_visit)
+                )
+                ClickableText(
+                    text = stringResource(R.string.app_website),
+                    onClick = {
+                        context.openWebsite(
+                            url = "$FIREBASE_EXPERT_URL/$APPS_DIRECTORY/$APP_NAME_DIRECTORY"
+                        )
+                    }
                 )
             }
         }
@@ -98,22 +139,19 @@ fun MainContent(
             horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
         ) {
             Text(
-                text = saleInfo.message
+                text = stringResource(R.string.discover_more)
             )
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                items(saleInfo.apps) { app ->
-                    Text(
+                items(apps) { app ->
+                    ClickableText(
                         text = app.name,
-                        modifier = Modifier.clickable {
-                            val intent = Intent(Intent.ACTION_VIEW).apply {
-                                data = app.url.toUri()
-                                setPackage("com.android.vending")
-                            }
-                            context.startActivity(intent)
-                        },
-                        textDecoration = TextDecoration.Underline
+                        onClick = {
+                            context.openPlayStore(
+                                url = app.url
+                            )
+                        }
                     )
                 }
             }
@@ -130,6 +168,45 @@ fun FirebaseLogo(
         contentDescription = stringResource(R.string.app_technology),
         modifier = Modifier.size(size)
     )
+}
+
+@Composable
+fun ClickableText(
+    text: String,
+    onClick: () -> Unit,
+) {
+    Text(
+        text = text,
+        modifier = Modifier.clickable {
+            onClick()
+        },
+        textDecoration = TextDecoration.Underline
+    )
+}
+
+@Composable
+fun ActionButton(
+    resId: Int,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(
+            size = 6.dp
+        ),
+        elevation = ButtonDefaults.buttonElevation(5.dp),
+        contentPadding = PaddingValues(
+            top = 12.dp,
+            bottom = 12.dp
+        )
+    ) {
+        Text(
+            text = stringResource(resId),
+            color = LocalContentColor.current,
+            fontSize = 18.sp
+        )
+    }
 }
 
 @Preview(
@@ -150,17 +227,17 @@ fun MainContentPreview() {
         ) {
             MainContent(
                 innerPadding = PaddingValues(),
-                saleInfo = SaleInfo(
-                    apps = listOf(
-                        App(
-                            name = "FireApp",
-                            url = "https://play.google.com/store/apps/details?id=com.firebase_expert.fireapp"
+                apps = listOf(
+                    App(
+                        name = "FireApp",
+                        url = "https://play.google.com/store/apps/details?id=com.firebase_expert.fireapp"
 
-                        )
                     ),
-                    message = "You might also try",
-                    question = "Interested in buying the source code?",
-                    url = "https://www.firebase-expert.com/apps/fireauth/"
+                    App(
+                        name = "BeerCounter",
+                        url = "https://play.google.com/store/apps/details?id=app.beer_counter"
+
+                    )
                 )
             )
         }

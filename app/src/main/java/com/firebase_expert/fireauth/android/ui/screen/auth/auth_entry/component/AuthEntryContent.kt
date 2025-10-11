@@ -40,7 +40,7 @@ import com.firebase_expert.fireauth.android.util.LIGHT_MODE
 import com.firebase_expert.fireauth.android.util.TEST_CODE
 import com.firebase_expert.fireauth.android.util.TEST_COUNTRY_CODE
 import com.firebase_expert.fireauth.android.util.TEST_PHONE_NUMBER
-import com.firebase_expert.fireauth.android.util.extensions.prefixWithPlus
+import com.firebase_expert.fireauth.android.util.extension.prefixWithPlus
 
 const val UNLISTED_COUNTRIES_CREDENTIALS = "For unlisted countries, use:"
 const val PHONE = "Phone"

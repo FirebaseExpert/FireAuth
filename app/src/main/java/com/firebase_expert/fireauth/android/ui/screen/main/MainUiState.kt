@@ -1,10 +1,10 @@
 package com.firebase_expert.fireauth.android.ui.screen.main
 
-import com.firebase_expert.fireauth.android.domain.model.SaleInfo
+import com.firebase_expert.fireauth.android.domain.model.App
 
 data class MainUiState(
-    val isGettingSaleInfo: Boolean = false,
-    val saleInfo: SaleInfo? = null
+    val isGettingApps: Boolean = false,
+    val apps: List<App>? = null
 ) {
-    val isLoading get() = isGettingSaleInfo
+    val isLoading get() = isGettingApps
 }

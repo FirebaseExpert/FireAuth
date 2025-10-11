@@ -23,7 +23,7 @@
     <string name="continue_button">Continue</string>
     <string name="continue_with_email_button">Continue with Email</string>
     <string name="continue_with_phone_button">Continue with Phone</string>
-    <string name="visit_website_button">Visit Website</string>
+    <string name="open_request_form_button">Open Request Form</string>
     <!--Actions-->
     <string name="sign_out">Sign out</string>
     <string name="delete_account">Delete account</string>
@@ -33,4 +33,13 @@
     <string name="send_again">Send again</string>
     <string name="powered_by_firebase">"Powered by Firebase"</string>
     <string name="version">"v."</string>
+    <!--ForSale Texts-->
+    <string name="powered_by">"Powered by"</string>
+    <string name="firebase">"Firebase"</string>
+    <string name="developed_by">"Developed by"</string>
+    <string name="firebase_expert">"Firebase Expert"</string>
+    <string name="interested_in_buying">"Interested in buying the source code?"</string>
+    <string name="for_more_details_visit">"For more details visit"</string>
+    <string name="app_website">"app website"</string>
+    <string name="discover_more">"Discover more:"</string>
 </resources>

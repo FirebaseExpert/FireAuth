@@ -47,7 +47,7 @@ import com.firebase_expert.fireauth.android.domain.model.Country
 import com.firebase_expert.fireauth.android.ui.screen.auth.util.transformation.DigitOnlyInputTransformation
 import com.firebase_expert.fireauth.android.ui.screen.auth.util.transformation.PhoneNumberOutputTransformation
 import com.firebase_expert.fireauth.android.util.COUNTRIES
-import com.firebase_expert.fireauth.android.util.extensions.prefixWithPlus
+import com.firebase_expert.fireauth.android.util.extension.prefixWithPlus
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,11 +1,18 @@
 package com.firebase_expert.fireauth.android.util
 
 //App
-const val TAG = "AppTag"
+const val TAG = "AppAuthTag"
 
 //Preview
 const val LIGHT_MODE = "Light Mode"
 const val DARK_MODE = "Dark Mode"
+
+//URLs
+const val FIREBASE_URL = "https://firebase.google.com"
+const val FIREBASE_EXPERT_URL = "https://www.firebase-expert.com"
+const val APPS_DIRECTORY = "apps"
+const val APP_NAME_DIRECTORY = "fireauth"
+const val APPS_FORM_URL = "https://bit.ly/apps-form"
 
 //Testing Phone Credentials
 const val TEST_COUNTRY_CODE = "+40"
@@ -43,12 +50,11 @@ const val INVALID_EMAIL_LINK = "The link in the email is invalid, expired, or ha
 const val INVALID_PHONE_NUMBER = "Invalid phone number"
 const val UNKNOWN_FAILURE = "Unknown failure"
 
-//SaleInfo Messages
-const val FETCH_SALE_INFO_SUCCESS = "Sale info successfully fetched"
-const val FETCH_SALE_INFO_FAILURE = "Failed to fetch sale info"
+//Apps Messages
+const val GET_APPS_FAILURE = "Failed to get apps"
 
 //Realtime Database Nodes
-const val SALE_INFO = "saleInfo"
+const val APPS = "apps"
 
 //Action Labels
 const val SEND_EMAIL = "Send email?"

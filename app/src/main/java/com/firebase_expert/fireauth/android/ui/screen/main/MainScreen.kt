@@ -61,10 +61,10 @@ fun MainScreen(
             )
         }
     ) { innerPadding ->
-        mainUiState.saleInfo?.let { saleInfo ->
+        mainUiState.apps?.let { apps ->
             MainContent(
                 innerPadding = innerPadding,
-                saleInfo = saleInfo
+                apps = apps
             )
         }
     }

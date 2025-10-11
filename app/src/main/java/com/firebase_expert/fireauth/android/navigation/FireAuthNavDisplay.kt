@@ -35,11 +35,11 @@ fun FireAuthNavDisplay(
         when (authState) {
             is AuthState.Loading -> {}
             is AuthState.SignedIn -> if (currentScreen != Screen.Main) {
-                backStack.onClearAndNavigate(Screen.Main)
+                backStack.clearAndNavigate(Screen.Main)
             }
             is AuthState.SignedOut -> {
                 if (currentScreen != Screen.AuthEntry && currentScreen !is Screen.VerifyCode) {
-                    backStack.onClearAndNavigate(Screen.AuthEntry)
+                    backStack.clearAndNavigate(Screen.AuthEntry)
                 }
             }
         }
@@ -81,7 +81,7 @@ fun FireAuthNavDisplay(
     )
 }
 
-fun <T : NavKey> NavBackStack<T>.onClearAndNavigate(screen: T) {
+fun <T : NavKey> NavBackStack<T>.clearAndNavigate(screen: T) {
     clear()
     add(screen)
 }

@@ -1,4 +1,4 @@
-package com.firebase_expert.fireauth.android.util.extensions
+package com.firebase_expert.fireauth.android.util.extension
 
 import android.util.Patterns
 

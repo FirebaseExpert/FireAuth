@@ -34,8 +34,8 @@ import com.firebase_expert.fireauth.android.util.TOO_MANY_REQUESTS
 import com.firebase_expert.fireauth.android.util.UNKNOWN_FAILURE
 import com.firebase_expert.fireauth.android.util.VERIFICATION_CODE_RESENT_SUCCESS
 import com.firebase_expert.fireauth.android.util.VERIFICATION_CODE_SENT_SUCCESS
-import com.firebase_expert.fireauth.android.util.extensions.isEmailValid
-import com.firebase_expert.fireauth.android.util.extensions.isPhoneNumberValid
+import com.firebase_expert.fireauth.android.util.extension.isEmailValid
+import com.firebase_expert.fireauth.android.util.extension.isPhoneNumberValid
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
